@@ -1,3 +1,10 @@
+#if canImport(FoundationEssentials)
+import FoundationEssentials
+#else
+import Foundation
+#endif
+
+
 public struct NanoID {
     public let rawValue: String
 
