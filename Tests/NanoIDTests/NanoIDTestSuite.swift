@@ -8,6 +8,13 @@ import Foundation
 
 @testable import SwiftNanoID
 
+@Suite
+
+struct <#name#> {
+    @Test func <#test name#>() async throws {
+        <#body#>
+    }
+}
 struct NanoIDTests {
 
     @Test func testAlphabet() {
@@ -129,7 +136,7 @@ struct NanoIDTests {
     
     // Decoding failure path
     
-    @Test func testDecodableFailsForInvalidString() {
+    @Test func DecodableFailsForInvalidString() {
         struct Wrapper: Codable { let id: NanoID }
 
         let jsonData = #"{"id":"!!!"}"#.data(using: .utf8)!
