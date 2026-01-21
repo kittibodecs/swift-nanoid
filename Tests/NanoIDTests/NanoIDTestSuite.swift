@@ -1,3 +1,10 @@
+//
+//  NanoIDTestSuite.swift
+//  swift-nanoid
+//
+//  Created by Kitti Bodecs on 2026. 01. 21..
+//
+
 import Testing
 
 #if canImport(FoundationEssentials)
@@ -6,18 +13,13 @@ import FoundationEssentials
 import Foundation
 #endif
 
-@testable import SwiftNanoID
+@testable import NanoID
 
 @Suite
+struct NanoIDTestSuite {
 
-struct <#name#> {
-    @Test func <#test name#>() async throws {
-        <#body#>
-    }
-}
-struct NanoIDTests {
-
-    @Test func testAlphabet() {
+    @Test
+    func alphabet() {
         let id = NanoID()
 
         for char in id.rawValue {
@@ -28,22 +30,25 @@ struct NanoIDTests {
         }
     }
 
-   @Test func testDefaultSize() {
+    @Test
+    func defaultSize() {
         let size = 21
         let id = NanoID(size: size)
-       #expect(id.rawValue.count == id.size)
+        #expect(id.rawValue.count == id.size)
 
-       #expect(size == id.size)
+        #expect(size == id.size)
     }
 
-    @Test func testCustomSize() {
+    @Test
+    func testCustomSize() {
         let size = 4
         let id = NanoID(size: size)
         #expect(id.rawValue.count == id.size)
         #expect(size == id.size)
     }
 
-    @Test func testValidAlphabet() {
+    @Test
+    func validAlphabet() {
         let id = NanoID("abc")
         #expect(id != nil)
         #expect(id?.rawValue == "abc")
@@ -51,22 +56,25 @@ struct NanoIDTests {
         #expect(id?.description == "abc")
     }
 
-    @Test func testInvalidAlphabet() {
+    @Test
+    func invalidAlphabet() {
         let id = NanoID("!!!")
         #expect(id == nil)
     }
 
-    @Test func testEquatable() {
+    @Test
+    func equatable() {
         let id1 = NanoID("abc")
         let id2 = NanoID("abc")
         let id3 = NanoID()
 
         #expect(id1 == id2)
         #expect(id1 != id3)
-    
+
     }
 
-    @Test func testDecodable() throws {
+    @Test
+    func decodable() throws {
         struct Wrapper: Codable {
             let id: NanoID
         }
@@ -78,7 +86,8 @@ struct NanoIDTests {
         #expect(wrapper.id.rawValue == "abc")
     }
 
-    @Test func testEncodable() throws {
+    @Test
+    func encodable() throws {
         struct Wrapper: Codable {
             let id: NanoID
         }
@@ -89,7 +98,8 @@ struct NanoIDTests {
         #expect(jsonString == #"{"id":"abc"}"#)
     }
 
-    @Test func testCollision() {
+    @Test
+    func collision() {
         var ids = Set<NanoID>()
         for _ in 0..<10_000 {
             let id = NanoID()
@@ -97,16 +107,16 @@ struct NanoIDTests {
             ids.insert(id)
         }
     }
-    
+
     // LoslessStringConvertible
-    
+
     @Test
     func initFailsForInvalidCharacters() {
         #expect(NanoID("abc def") == nil)
         #expect(NanoID("abc🙂def") == nil)
         #expect(NanoID("abc\ndef") == nil)
     }
-    
+
     @Test
     func initSucceedsForValidCharacters() {
         let s = String(NanoID.alphabet.prefix(10))
@@ -115,7 +125,7 @@ struct NanoIDTests {
         #expect(id != nil)
         #expect(id?.rawValue == s)
     }
-    
+
     @Test
     func descriptionReturnsRawValue() {
         let s = String(NanoID.alphabet.suffix(12))
@@ -133,10 +143,11 @@ struct NanoIDTests {
         #expect(roundTripped.rawValue == original.rawValue)
         #expect(roundTripped.description == original.description)
     }
-    
+
     // Decoding failure path
-    
-    @Test func DecodableFailsForInvalidString() {
+
+    @Test
+    func decodableFailsForInvalidString() {
         struct Wrapper: Codable { let id: NanoID }
 
         let jsonData = #"{"id":"!!!"}"#.data(using: .utf8)!
@@ -146,8 +157,9 @@ struct NanoIDTests {
             _ = try decoder.decode(Wrapper.self, from: jsonData)
         }
     }
-    
-    @Test func testDecodableFailsWithDataCorrupted() {
+
+    @Test
+    func decodableFailsWithDataCorrupted() {
         struct Wrapper: Codable { let id: NanoID }
 
         let jsonData = #"{"id":"!!!"}"#.data(using: .utf8)!
@@ -156,9 +168,11 @@ struct NanoIDTests {
         do {
             _ = try decoder.decode(Wrapper.self, from: jsonData)
             Issue.record("Expected decoding to fail, but it succeeded.")
-        } catch let DecodingError.dataCorrupted(context) {
+        }
+        catch let DecodingError.dataCorrupted(context) {
             #expect(context.debugDescription.contains("Failed to convert"))
-        } catch {
+        }
+        catch {
             Issue.record("Unexpected error: \(error)")
         }
     }

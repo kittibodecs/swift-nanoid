@@ -31,14 +31,14 @@ let package = Package(
             .visionOS(.v2),
         ],
     products: [
-        .library(name: "SwiftNanoID", targets: ["SwiftNanoID"]),
+        .library(name: "NanoID", targets: ["NanoID"]),
     ],
     targets: [
-        .target(name: "SwiftNanoID"),
+        .target(name: "NanoID"),
         .testTarget(
-            name: "SwiftNanoIDTests",
+            name: "NanoIDTests",
             dependencies: [
-                .target(name: "SwiftNanoID"),
+                .target(name: "NanoID"),
                 ]
         ),
     ]

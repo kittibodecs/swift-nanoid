@@ -2,12 +2,12 @@
 
 A really simple [NanoID](https://github.com/ai/nanoid) implementation for the Swift programming language.
 
-![Release: 1.1.0](https://img.shields.io/badge/Release-1%2E0%2E0--beta%2E1-F05138)
-
+![Release: 1.1.0](https://img.shields.io/badge/Release-1%2E1%2E0-F05138)
 
 ## Features
-Effortless NanoID generation 
-Non-cryptographically secure randomness
+
+🚀 Effortless NanoID generation 
+⚠️ Non-cryptographically secure randomness
 🔀 Designed for modern Swift concurrency
 📚 DocC-based API Documentation
 ✅ Unit tests and code coverage
@@ -29,7 +29,7 @@ Non-cryptographically secure randomness
     
 ## Installation
 
-Use Swift Package Manager; add the dependency to your Package.swift file:
+Use Swift Package Manager; add the dependency to your `Package.swift` file:
 
 ```swift
 .package(url: "https://github.com/binarybirds/swift-nanoid", from: "1.0.0"),
@@ -46,7 +46,6 @@ Update the packages and you are ready.
 ## Usage 
 
 ![DocC API documentation](https://img.shields.io/badge/DocC-API_documentation-F05138)
-
 
 Basic example
 
