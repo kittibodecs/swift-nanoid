@@ -5,12 +5,6 @@
 //  Created by Kitti Bodecs on 2026. 01. 21..
 //
 
-#if canImport(FoundationEssentials)
-import FoundationEssentials
-#else
-import Foundation
-#endif
-
 /// `NanoID` can:
 /// - Generate a random identifier of a given length using a fixed alphabet.
 /// - Validate / construct an identifier from an existing string (only if it contains allowed characters).
